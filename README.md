@@ -1,8 +1,10 @@
 # 答题器云端版
 
-这是答题器的 GitHub Pages 前端。账号、题库、错题、收藏、成绩和答题历史由 Supabase 提供。
+这是答题器的静态前端，主站托管在 Cloudflare Pages，GitHub Pages 保留为备用入口。账号、题库、错题、收藏、成绩和答题历史由 Supabase 提供。
 
-线上地址：https://yanc079.github.io/quiz-practice-web/
+线上地址：https://studyexam.pages.dev/
+
+GitHub Pages 备用地址：https://yanc079.github.io/quiz-practice-web/
 
 ## 部署前配置
 
@@ -15,6 +17,12 @@
 不要把 Supabase `service_role` 密钥写入网页或提交到仓库。
 
 浏览器端依赖已固定为 `@supabase/supabase-js 2.118.0`，文件位于 `vendor/supabase.js`，许可证位于 `vendor/supabase.LICENSE`。
+
+Cloudflare Pages 重新部署时，将运行所需的 `index.html`、`cloud.js`、`config.js` 和 `vendor/` 复制到 `dist/`，然后执行：
+
+```powershell
+npx wrangler pages deploy dist --project-name studyexam --branch main
+```
 
 ## 数据可见性
 
