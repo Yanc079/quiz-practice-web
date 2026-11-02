@@ -533,9 +533,14 @@ body.eye-care .history-delete-btn { color: #fca5a5; background: #2a2a2a; border-
           <h3>章节进度</h3>
           <p>按章节汇总，按每题最近一次提交结果计算。</p>
         </div>
-        <button id="resetAllChaptersBtn" class="btn btn-danger">重置全部章节记录</button>
+        <div class="btn-group">
+          <button id="chapterStatsToggleBtn" class="btn btn-outline" aria-expanded="false">展开章节进度</button>
+          <button id="resetAllChaptersBtn" class="btn btn-danger">重置全部章节记录</button>
+        </div>
       </div>
-      <div id="chapterStatsList" class="chapter-stats-list"></div>
+      <div id="chapterStatsBody" class="hidden">
+        <div id="chapterStatsList" class="chapter-stats-list"></div>
+      </div>
     </section>
     <section class="learning-section">
       <div class="learning-section-head">
@@ -1788,9 +1793,9 @@ function startQuizApp(activePayload = null) {
   renderWrongPanel(false); renderFavPanel(false); loadRecite();
 }
 </script>
-<script src="vendor/supabase.js?v=20261102-2"></script>
-<script src="config.js?v=20261102-2"></script>
-<script src="progress-core.js?v=20261102-2"></script>
-<script src="cloud.js?v=20261102-2"></script>
+<script src="vendor/supabase.js?v=20261102-3"></script>
+<script src="config.js?v=20261102-3"></script>
+<script src="progress-core.js?v=20261102-3"></script>
+<script src="cloud.js?v=20261102-3"></script>
 </body>
 </html>

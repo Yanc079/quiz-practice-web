@@ -20,6 +20,7 @@
     historyExpanded: new Set(),
     selectedHistoryQuestion: new Map(),
     sessionQuestionCache: new Map(),
+    chapterStatsExpanded: false,
     learningStates: [],
     activePractice: null,
     activeSaveTimer: null,
@@ -1118,6 +1119,8 @@
 
   function renderChapterStats() {
     const container = document.getElementById('chapterStatsList');
+    const toggle = document.getElementById('chapterStatsToggleBtn');
+    const body = document.getElementById('chapterStatsBody');
     if (!container) return;
     const stats = window.QuizProgressCore.computeChapterStats(globalMasterList, learningStates);
     const chapters = Object.entries(stats).sort((a, b) => {
@@ -1128,6 +1131,9 @@
       };
       return order(a) - order(b) || a[0].localeCompare(b[0], 'zh-CN');
     });
+    if (toggle) toggle.textContent = `${state.chapterStatsExpanded ? '收起' : '展开'}章节进度（${chapters.length}章）`;
+    if (toggle) toggle.setAttribute('aria-expanded', String(state.chapterStatsExpanded));
+    if (body) body.classList.toggle('hidden', !state.chapterStatsExpanded);
     if (!chapters.length) { container.innerHTML = '<div class="empty-tip">当前题库还没有章节数据</div>'; return; }
     container.innerHTML = chapters.map(([chapter, item]) => `<div class="chapter-stat-row">
       <div class="chapter-stat-name">${cloudEscape(chapter)}</div>
@@ -1391,6 +1397,10 @@
     document.getElementById('chapterStatsList')?.addEventListener('click', event => {
       const button = event.target.closest('[data-reset-chapter]');
       if (button) resetChapterLearningState(button.dataset.resetChapter);
+    });
+    document.getElementById('chapterStatsToggleBtn')?.addEventListener('click', () => {
+      state.chapterStatsExpanded = !state.chapterStatsExpanded;
+      renderChapterStats();
     });
     document.getElementById('resetAllChaptersBtn')?.addEventListener('click', resetAllLearningStates);
     document.getElementById('refreshHistoryBtn')?.addEventListener('click', refreshHistory);
