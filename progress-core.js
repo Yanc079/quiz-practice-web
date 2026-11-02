@@ -53,6 +53,7 @@
       const existing = byContent.get(content);
       if (existing) {
         if (!existing.sources.includes(source)) existing.sources.push(source);
+        if (original.id != null && !existing.allIds.includes(String(original.id))) existing.allIds.push(String(original.id));
         continue;
       }
       const fingerprint = await fingerprintQuestion(original);
@@ -60,7 +61,8 @@
         ...JSON.parse(JSON.stringify(original)),
         fingerprint,
         chapter: normalizeChapter(original.knowledge),
-        sources: [source]
+        sources: [source],
+        allIds: original.id == null ? [] : [String(original.id)]
       });
     }
     return [...byContent.values()];

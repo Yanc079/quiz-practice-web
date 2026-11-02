@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link rel="icon" href="data:,">
 <title>刷题程序 · 收藏 · 错题 · 护眼</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -312,11 +313,51 @@ body.eye-care .auth-field input { background: #2a2a2a; border-color: #444; color
 body.eye-care .history-card, body.eye-care .history-detail { background: #2a2a2a; border-color: #444; }
 body.eye-care .history-card-head:hover { background: #333; }
 body.eye-care .history-mode, body.eye-care .history-stat strong { color: #e2e8f0; }
+.practice-progress { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; color: #475569; font-size: 0.9rem; font-weight: 650; white-space: nowrap; }
+.learning-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+.learning-section:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+.learning-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+.learning-section-head h3 { color: #1e3a5f; font-size: 1.08rem; margin-bottom: 5px; }
+.learning-section-head p { color: #64748b; font-size: 0.83rem; line-height: 1.5; }
+.chapter-stats-list { display: grid; gap: 9px; }
+.chapter-stat-row { display: grid; grid-template-columns: minmax(210px,1.6fr) repeat(5,minmax(72px,.62fr)) auto; gap: 10px; align-items: center; padding: 13px 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 15px; }
+.chapter-stat-name { font-weight: 750; color: #1e3a5f; }
+.chapter-stat-cell { text-align: center; color: #64748b; font-size: 0.8rem; }
+.chapter-stat-cell strong { display: block; color: #1e293b; font-size: 0.98rem; margin-bottom: 2px; }
+.question-number-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(48px,1fr)); gap: 8px; margin: 12px 0 16px; }
+.question-number-btn { border: 2px solid #cbd5e1; border-radius: 12px; padding: 9px 7px; background: #f1f5f9; color: #475569; font: inherit; font-weight: 750; cursor: pointer; }
+.question-number-btn.correct { color: #166534; background: #dcfce7; border-color: #86efac; }
+.question-number-btn.wrong { color: #991b1b; background: #fee2e2; border-color: #fca5a5; }
+.question-number-btn.unanswered { color: #64748b; background: #f1f5f9; border-color: #cbd5e1; }
+.question-number-btn.selected { outline: 3px solid #2563eb; outline-offset: 2px; }
+.session-question-detail { padding: 15px; border: 1px solid #e2e8f0; border-radius: 15px; background: #fff; line-height: 1.65; }
+.session-question-detail .sub-q-recite { margin-top: 12px; }
+.session-option { padding: 8px 11px; margin: 7px 0; border-radius: 10px; border: 1px solid #e2e8f0; background: #f8fafc; }
+.session-option.correct { background: #dcfce7; border-color: #86efac; color: #166534; }
+.session-option.wrong { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+.history-delete-btn { color: #b91c1c; background: #fff; border: 1px solid #fecaca; border-radius: 20px; padding: 5px 10px; cursor: pointer; font: inherit; font-size: 0.78rem; }
+body.eye-care .practice-progress, body.eye-care .learning-section-head p { color: #c8c8c8; }
+body.eye-care .learning-section { border-color: #444; }
+body.eye-care .learning-section-head h3, body.eye-care .chapter-stat-name { color: #e2e8f0; }
+body.eye-care .chapter-stat-row, body.eye-care .session-question-detail { background: #2a2a2a; border-color: #444; }
+body.eye-care .chapter-stat-cell, body.eye-care .chapter-stat-cell strong { color: #d4d4d4; }
+body.eye-care .session-option { background: #333; border-color: #4a4a4a; color: #d4d4d4; }
+body.eye-care .session-option.correct { background: rgba(22,101,52,.35); border-color: #4ade80; color: #bbf7d0; }
+body.eye-care .session-option.wrong { background: rgba(127,29,29,.35); border-color: #f87171; color: #fecaca; }
+body.eye-care .question-number-btn.correct { color: #bbf7d0; background: rgba(22,101,52,.35); border-color: #4ade80; }
+body.eye-care .question-number-btn.wrong { color: #fecaca; background: rgba(127,29,29,.35); border-color: #f87171; }
+body.eye-care .question-number-btn.unanswered { color: #d1d5db; background: #333; border-color: #555; }
+body.eye-care .history-delete-btn { color: #fca5a5; background: #2a2a2a; border-color: #7f1d1d; }
 @media (max-width: 760px) {
   .auth-card { padding: 26px 20px; border-radius: 22px; }
   .history-card-head { grid-template-columns: 1fr 1fr 26px; }
   .history-stat:nth-of-type(3), .history-stat:nth-of-type(4) { display: none; }
   .admin-user-row { grid-template-columns: 1fr; gap: 7px; }
+  .practice-progress { align-items: flex-start; width: 100%; }
+  .learning-section-head { flex-direction: column; }
+  .chapter-stat-row { grid-template-columns: 1fr 1fr; }
+  .chapter-stat-name { grid-column: 1 / -1; }
+  .chapter-stat-row > button { grid-column: 1 / -1; }
 }
 </style>
 </head>
@@ -380,6 +421,7 @@ body.eye-care .history-mode, body.eye-care .history-stat strong { color: #e2e8f0
       <div class="btn-group">
         <select id="yearFilterSelect" class="year-select"><option value="all">📅 全部年份</option></select>
         <select id="typeFilterSelect" class="type-select">
+          <option value="undone">未做题目</option>
           <option value="all">📋 全部题型</option>
           <option value="single">🔘 单选/多选</option>
           <option value="comprehensive">📚 综合分析</option>
@@ -392,7 +434,10 @@ body.eye-care .history-mode, body.eye-care .history-stat strong { color: #e2e8f0
         <button id="restartPracticeBtn" class="btn btn-outline">🔄 重新开始</button>
         <button id="exitMockBtn" class="btn btn-danger" style="display:none;">❌ 退出模拟测验</button>
       </div>
-      <div><span id="curPracticeInfo"></span></div>
+      <div class="practice-progress">
+        <div id="curPracticeInfo">本次已答：0 / 0</div>
+        <div id="cumulativePracticeInfo">累积已答：0 / 0</div>
+      </div>
     </div>
     <div id="practiceContent"></div>
     <div id="practiceControls" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -482,7 +527,28 @@ body.eye-care .history-mode, body.eye-care .history-stat strong { color: #e2e8f0
       <div id="historySummary" class="cloud-status">正在读取学习记录...</div>
       <button id="refreshHistoryBtn" class="btn btn-outline">刷新记录</button>
     </div>
-    <div id="historyList" class="history-list"></div>
+    <section class="learning-section">
+      <div class="learning-section-head">
+        <div>
+          <h3>章节进度</h3>
+          <p>按章节汇总，按每题最近一次提交结果计算。</p>
+        </div>
+        <button id="resetAllChaptersBtn" class="btn btn-danger">重置全部章节记录</button>
+      </div>
+      <div id="chapterStatsList" class="chapter-stats-list"></div>
+    </section>
+    <section class="learning-section">
+      <div class="learning-section-head">
+        <div><h3>模拟测验</h3><p>每次测验独立保存，可展开按题号查看。</p></div>
+      </div>
+      <div id="mockHistoryList" class="history-list"></div>
+    </section>
+    <section class="learning-section">
+      <div class="learning-section-head">
+        <div><h3>临考押题</h3><p>每次练习独立保存，可展开按题号查看。</p></div>
+      </div>
+      <div id="randomHistoryList" class="history-list"></div>
+    </section>
   </div>
 
   <div id="userAdminPanel" class="panel" style="display:none;">
@@ -534,6 +600,7 @@ body.eye-care .history-mode, body.eye-care .history-stat strong { color: #e2e8f0
 let globalMasterList = [];
 let wrongList = JSON.parse(localStorage.getItem("wrongList_tax_v22") || "[]");
 let favoritesList = JSON.parse(localStorage.getItem("favorites_tax_v22") || "[]");
+let learningStates = [];
 let currentSession = null;
 let currentPracticeSet = [];
 let userAnswers = [];
@@ -584,6 +651,8 @@ function saveUserQuestions(qs) { localStorage.setItem("user_bank_tax_v22", JSON.
 function loadUserQuestions() { try { return JSON.parse(localStorage.getItem("user_bank_tax_v22") || "[]"); } catch { return []; } }
 function savePublicQuestions(qs) { localStorage.setItem("public_bank_tax_v22", JSON.stringify(qs)); }
 function loadPublicQuestions() { try { return JSON.parse(localStorage.getItem("public_bank_tax_v22") || "[]"); } catch { return []; } }
+function saveMergedQuestions(qs) { localStorage.setItem("merged_bank_tax_v23", JSON.stringify(qs)); }
+function loadMergedQuestions() { try { return JSON.parse(localStorage.getItem("merged_bank_tax_v23") || "[]"); } catch { return []; } }
 function escapeHtml(s) { if (s == null) return ""; return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 function normalizeAnswer(letter) { if (!letter) return []; return String(letter).toUpperCase().split('').filter(c => /[A-Z]/.test(c)).sort(); }
 function isCorrectAnswer(userLetters, correctLetter) { if (!userLetters || userLetters.length === 0) return false; const u = [...userLetters].sort().join(''); const c = normalizeAnswer(correctLetter).join(''); return u === c; }
@@ -592,6 +661,11 @@ function getSubCount(q) { return isComprehensive(q) ? q.subQuestions.length : 1;
 function lettersByTexts(options, texts) { if (!Array.isArray(texts)) return []; const out = []; texts.forEach(t => { const opt = options.find(o => o.text === t); if (opt) out.push(opt.letter); }); return out; }
 function isFavorited(qid) { return favoritesList.some(f => f.qid === qid); }
 function toggleFavorite(qid) { const idx = favoritesList.findIndex(f => f.qid === qid); if (idx !== -1) favoritesList.splice(idx, 1); else favoritesList.push({ qid, favTime: Date.now() }); saveFavorites(); }
+function learningKey(question, subIndex) { return question?.fingerprint ? `${question.fingerprint}:${subIndex}` : ''; }
+function questionHasId(question, qid) { return String(question.id) === String(qid) || (Array.isArray(question.allIds) && question.allIds.map(String).includes(String(qid))); }
+function hasLearningState(question, subIndex) { const key = learningKey(question, subIndex); return Boolean(key && learningStates.some(state => `${state.question_fingerprint}:${state.sub_index}` === key)); }
+function isQuestionDone(question) { if (!question?.fingerprint) return false; if (isComprehensive(question)) return question.subQuestions.every((_, index) => hasLearningState(question, index + 1)); return hasLearningState(question, 0); }
+function hasUndoneSubquestion(question) { if (!question?.fingerprint) return true; if (isComprehensive(question)) return question.subQuestions.some((_, index) => !hasLearningState(question, index + 1)); return !hasLearningState(question, 0); }
 function sortChapters(arr) { return [...arr].sort((a, b) => { const getNum = (s) => { const m = s.match(/第([一二三四五六七八九十百]+)章/); if (m) { const cn = {'一':1,'二':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10,'十一':11,'十二':12,'十三':13,'十四':14,'十五':15,'十六':16,'十七':17,'十八':18,'十九':19,'二十':20}; return cn[m[1]] || 999; } const n = s.match(/^(\d+)/); return n ? parseInt(n[1]) : 999; }; return getNum(a) - getNum(b); }); }
 function cleanKnowledgeText(k) {
   if (!k) return "";
@@ -651,10 +725,30 @@ function shuffleQuestion(original) {
   if (isComprehensive(original)) { const clone = JSON.parse(JSON.stringify(original)); clone.subQuestions = clone.subQuestions.map(sq => shuffleSingleQuestion(sq)); return clone; }
   return shuffleSingleQuestion(original);
 }
+function applyStoredShuffle(original, shuffleSpec) {
+  const applySingle = (source, map) => {
+    const clone = JSON.parse(JSON.stringify(source));
+    const letterMap = map && typeof map === 'object' ? map : {};
+    clone.options = clone.options
+      .map(option => ({ ...option, letter: letterMap[option.letter] || option.letter }))
+      .sort((a, b) => a.letter.localeCompare(b.letter));
+    clone.correctLetter = normalizeAnswer(source.correctLetter).map(letter => letterMap[letter] || letter).sort().join('');
+    clone.letterMap = letterMap;
+    return clone;
+  };
+  if (isComprehensive(original)) {
+    const clone = JSON.parse(JSON.stringify(original));
+    const maps = Array.isArray(shuffleSpec) ? shuffleSpec : [];
+    clone.subQuestions = original.subQuestions.map((subQuestion, index) => applySingle(subQuestion, maps[index]));
+    return clone;
+  }
+  return applySingle(original, shuffleSpec);
+}
 
 /* ==================== 题库维护 ==================== */
 function rebuildMasterList() {
-  globalMasterList = [...loadUserQuestions(), ...loadPublicQuestions()];
+  globalMasterList = loadMergedQuestions();
+  if (globalMasterList.length === 0) globalMasterList = [...loadUserQuestions(), ...loadPublicQuestions()];
   updateYearFilter();
   updateStats();
   updateReciteChapterSelect();
@@ -662,7 +756,9 @@ function rebuildMasterList() {
 }
 function renderSourceBadge(q) {
   if (!q) return '';
-  return q.source === 'public' ? '<span class="source-badge public">公共题库</span>' : '<span class="source-badge">我的题库</span>';
+  const sources = Array.isArray(q.sources) ? q.sources : [q.source === 'public' ? 'public' : 'personal'];
+  if (sources.includes('public') && sources.includes('personal')) return '<span class="source-badge public">公共题库＋我的题库</span>';
+  return sources.includes('public') ? '<span class="source-badge public">公共题库</span>' : '<span class="source-badge">我的题库</span>';
 }
 function updateStats() {
   document.getElementById("totalCount").innerText = globalMasterList.length;
@@ -678,17 +774,17 @@ function updateYearFilter() {
 function updateReciteChapterSelect() {
   const sel = document.getElementById("reciteChapterSelect");
   if (!sel) return;
-  const chapters = sortChapters([...new Set(globalMasterList.map(q => cleanKnowledgeText(q.knowledge) || '未分类'))]);
+  const chapters = sortChapters([...new Set(globalMasterList.map(q => q.chapter || cleanKnowledgeText(q.knowledge) || '未分类'))]);
   sel.innerHTML = `<option value="all">📂 全部章节</option>`;
-  chapters.forEach(c => { const cnt = globalMasterList.filter(q => (cleanKnowledgeText(q.knowledge) || '未分类') === c).length; sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)} (${cnt})</option>`; });
+  chapters.forEach(c => { const cnt = globalMasterList.filter(q => (q.chapter || cleanKnowledgeText(q.knowledge) || '未分类') === c).length; sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)} (${cnt})</option>`; });
   sel.value = reciteFilterChapter;
 }
 function updatePracticeChapterSelect() {
   const sel = document.getElementById("chapterFilterSelect");
   if (!sel) return;
-  const chapters = sortChapters([...new Set(globalMasterList.map(q => cleanKnowledgeText(q.knowledge) || '未分类'))]);
+  const chapters = sortChapters([...new Set(globalMasterList.map(q => q.chapter || cleanKnowledgeText(q.knowledge) || '未分类'))]);
   sel.innerHTML = `<option value="all">📂 全部章节</option>`;
-  chapters.forEach(c => { const cnt = globalMasterList.filter(q => (cleanKnowledgeText(q.knowledge) || '未分类') === c).length; sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)} (${cnt})</option>`; });
+  chapters.forEach(c => { const cnt = globalMasterList.filter(q => (q.chapter || cleanKnowledgeText(q.knowledge) || '未分类') === c).length; sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)} (${cnt})</option>`; });
   sel.value = currentFilterChapter;
 }
 
@@ -867,6 +963,28 @@ function beginSession(mode, label) {
     saving: false
   };
 }
+function archiveCurrentPracticeBeforeReplacement() {
+  if (currentSession) window.QuizCloud?.archiveActivePractice?.();
+}
+function persistStartedPractice() {
+  window.QuizCloud?.startActivePractice?.();
+}
+async function finishCurrentPractice(statusEl, status = 'completed') {
+  if (!currentSession || currentSession.finished) return false;
+  if (statusEl) statusEl.textContent = '正在保存本次练习...';
+  const sessionId = currentSession.id;
+  const finishedMode = currentSession.mode;
+  const ok = await window.QuizCloud?.finalizeCurrentPractice?.(status);
+  if (ok) {
+    if (currentSession?.id === sessionId) currentSession = null;
+    if (statusEl) statusEl.textContent = status === 'completed' ? '本次记录已保存到云端。' : '本次记录已保存为“未完成”。';
+    const practiceButton = document.getElementById('submitPracticeBtn');
+    if (finishedMode !== 'mock' && practiceButton) { practiceButton.disabled = true; practiceButton.innerText = '✅ 本次记录已保存'; }
+    return true;
+  }
+  if (statusEl) statusEl.textContent = '保存失败，请检查网络后重试。';
+  return false;
+}
 function setupPracticeEnvironment() {
   clearMockTimer();
   document.getElementById("countdownBar").style.display = "none";
@@ -882,30 +1000,34 @@ function setupPracticeEnvironment() {
   document.getElementById("practiceReport").style.display = "none";
 }
 function startNormalPractice() {
+  archiveCurrentPracticeBeforeReplacement();
   currentMode = 'normal';
   setupPracticeEnvironment();
   let source = globalMasterList.filter(q => {
     if (currentFilterYear !== "all" && q.year !== parseInt(currentFilterYear)) return false;
     if (currentFilterType === "single" && isComprehensive(q)) return false;
     if (currentFilterType === "comprehensive" && !isComprehensive(q)) return false;
-    if (currentFilterType === "fav" && !favoritesList.some(f => f.qid === q.id)) return false;
-    if (currentFilterType === "wrong" && !wrongList.some(w => w.qid === q.id)) return false;
-    if (currentFilterChapter !== "all" && (cleanKnowledgeText(q.knowledge) || '未分类') !== currentFilterChapter) return false;
+    if (currentFilterType === "undone" && !hasUndoneSubquestion(q)) return false;
+    if (currentFilterType === "fav" && !favoritesList.some(f => questionHasId(q, f.qid))) return false;
+    if (currentFilterType === "wrong" && !wrongList.some(w => questionHasId(q, w.qid))) return false;
+    if (currentFilterChapter !== "all" && (q.chapter || cleanKnowledgeText(q.knowledge) || '未分类') !== currentFilterChapter) return false;
     return true;
   });
-  if (source.length === 0) { renderEmpty(); return; }
+  if (source.length === 0) { currentSession = null; currentPracticeSet = []; renderEmpty(); window.QuizCloud?.clearActivePractice?.(); return; }
   const sessionMode = currentFilterType === 'fav' ? 'favorite_practice' : (currentFilterType === 'wrong' ? 'wrong_practice' : 'practice');
-  const sessionLabel = currentFilterType === 'fav' ? '收藏题练习' : (currentFilterType === 'wrong' ? '错题练习' : '题库练习');
+  const sessionLabel = currentFilterType === 'fav' ? '收藏题练习' : (currentFilterType === 'wrong' ? '错题练习' : (currentFilterType === 'undone' ? '未做题目' : '题库练习'));
   beginSession(sessionMode, sessionLabel);
   for (let i = source.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [source[i], source[j]] = [source[j], source[i]]; }
   currentPracticeSet = source.map(q => shuffleQuestion(q));
   currentPracticeIndex = 0;
   userAnswers = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(null) : null);
   submittedFlags = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(false) : false);
+  persistStartedPractice();
   renderCurrentPractice();
   updatePracticeInfo();
 }
 function startRandomPractice(count) {
+  archiveCurrentPracticeBeforeReplacement();
   currentMode = 'random';
   setupPracticeEnvironment();
   const picked = pickQuestionsBySubCount(globalMasterList, count, 1);
@@ -914,10 +1036,12 @@ function startRandomPractice(count) {
   currentPracticeIndex = 0;
   userAnswers = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(null) : null);
   submittedFlags = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(false) : false);
+  persistStartedPractice();
   renderCurrentPractice();
   updatePracticeInfo();
 }
 function startMockExam(count, durationMin, numComp) {
+  archiveCurrentPracticeBeforeReplacement();
   currentMode = 'mock';
   clearMockTimer();
   document.getElementById("countdownBar").style.display = "flex";
@@ -935,11 +1059,13 @@ function startMockExam(count, durationMin, numComp) {
   submittedFlags = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(false) : false);
   expandedMockRows.clear();
   mockState.active = true; mockState.submitted = false; mockState.durationMin = durationMin; mockState.remaining = durationMin * 60; mockState.startTime = Date.now();
+  persistStartedPractice();
   renderCurrentPractice();
   updatePracticeInfo();
   startCountdown();
 }
 function startPracticeFromList(qs, sessionMode = 'list_practice', sessionLabel = '专项练习') {
+  archiveCurrentPracticeBeforeReplacement();
   currentMode = 'normal';
   setupPracticeEnvironment();
   beginSession(sessionMode, sessionLabel);
@@ -948,6 +1074,7 @@ function startPracticeFromList(qs, sessionMode = 'list_practice', sessionLabel =
   currentPracticeIndex = 0;
   userAnswers = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(null) : null);
   submittedFlags = currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(false) : false);
+  persistStartedPractice();
   renderCurrentPractice();
   updatePracticeInfo();
   document.querySelectorAll(".panel").forEach(p => p.style.display = "none");
@@ -955,12 +1082,23 @@ function startPracticeFromList(qs, sessionMode = 'list_practice', sessionLabel =
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
   document.querySelector('.nav-btn[data-panel="practicePanel"]').classList.add("active");
 }
-function renderEmpty() { document.getElementById("practiceContent").innerHTML = `<div class="empty-tip">📭 当前筛选条件下没有题目</div>`; document.getElementById("questionCounter").innerText = "0 / 0"; document.getElementById("curPracticeInfo").innerText = ""; }
+function renderEmpty() {
+  document.getElementById("practiceContent").innerHTML = `<div class="empty-tip">📭 当前筛选条件下没有题目</div>`;
+  document.getElementById("questionCounter").innerText = "0 / 0";
+  updatePracticeInfo();
+}
 function updatePracticeInfo() {
   let answered = 0;
-  for (let i = 0; i < currentPracticeSet.length; i++) { if (isComprehensive(currentPracticeSet[i])) { const arr = userAnswers[i] || []; answered += arr.filter(a => a !== null).length; } else { if (userAnswers[i] !== null) answered++; } }
+  for (let i = 0; i < currentPracticeSet.length; i++) {
+    if (isComprehensive(currentPracticeSet[i])) answered += (submittedFlags[i] || []).filter(Boolean).length;
+    else if (submittedFlags[i]) answered++;
+  }
   const totalSub = currentPracticeSet.reduce((s, q) => s + getSubCount(q), 0);
-  document.getElementById("curPracticeInfo").innerText = `已答: ${answered}/${totalSub}`;
+  const cumulative = window.QuizProgressCore
+    ? window.QuizProgressCore.computeCumulative(globalMasterList, learningStates)
+    : { done: 0, total: globalMasterList.reduce((sum, q) => sum + getSubCount(q), 0) };
+  document.getElementById("curPracticeInfo").innerText = `本次已答：${answered} / ${totalSub}`;
+  document.getElementById("cumulativePracticeInfo").innerText = `累积已答：${cumulative.done} / ${cumulative.total}`;
 }
 function restartCurrentPractice() {
   if (currentMode === 'mock') { if (!confirm("当前正在考试，确定重新开始？")) return; const count = currentPracticeSet.reduce((s, q) => s + getSubCount(q), 0); const dur = mockState.durationMin; const numComp = currentPracticeSet.filter(q => isComprehensive(q)).length; clearMockTimer(); startMockExam(count, dur, numComp); return; }
@@ -1035,9 +1173,10 @@ function renderSingle(q, container, isMock, mockFinished) {
       userAnswers[currentPracticeIndex] = cur;
       
       renderCurrentPractice();
+      window.QuizCloud?.scheduleActivePracticeSave?.();
     });
   });
-  container.querySelectorAll(".q-nav-dot").forEach(el => { el.addEventListener("click", () => { const idx = parseInt(el.dataset.goto); if (!isNaN(idx)) { currentPracticeIndex = idx; renderCurrentPractice(); } }); });
+  container.querySelectorAll(".q-nav-dot").forEach(el => { el.addEventListener("click", () => { const idx = parseInt(el.dataset.goto); if (!isNaN(idx)) { currentPracticeIndex = idx; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); } }); });
   
   const submitSingleBtn = container.querySelector(".submit-single-btn");
   if (submitSingleBtn) {
@@ -1046,8 +1185,11 @@ function renderSingle(q, container, isMock, mockFinished) {
       if (cur === null || cur === undefined || (Array.isArray(cur) && cur.length === 0)) { alert("请先选择答案"); return; }
       submittedFlags[currentPracticeIndex] = true;
       const uLetters = Array.isArray(cur) ? cur : [cur];
-      if (isCorrectAnswer(uLetters, q.correctLetter)) handleCorrectAnswerInWrongBook(q, false);
+      const isCorrect = isCorrectAnswer(uLetters, q.correctLetter);
+      if (isCorrect) handleCorrectAnswerInWrongBook(q, false);
       else recordWrongAnswer(q, uLetters);
+      window.QuizCloud?.recordSubmittedAnswer?.({ question: q, questionIndex: currentPracticeIndex, subIndex: 0, answer: uLetters, isCorrect });
+      window.QuizCloud?.scheduleActivePracticeSave?.(true);
       renderCurrentPractice();
     });
   }
@@ -1113,11 +1255,13 @@ function renderComprehensive(q, container, isMock, mockFinished) {
       
       userAnswers[currentPracticeIndex] = arr;
       renderCurrentPractice();
+      window.QuizCloud?.scheduleActivePracticeSave?.();
     });
   });
   container.querySelectorAll(".submit-sub-btn").forEach(el => {
     el.addEventListener("click", () => {
       const si = parseInt(el.dataset.si);
+      const sq = q.subQuestions[si];
       const arr = userAnswers[currentPracticeIndex] || [];
       const cur = arr[si];
       if (cur === null || cur === undefined || (Array.isArray(cur) && cur.length === 0)) { alert("请先选择答案"); return; }
@@ -1125,6 +1269,9 @@ function renderComprehensive(q, container, isMock, mockFinished) {
       if (!Array.isArray(submittedArr)) submittedArr = new Array(q.subQuestions.length).fill(false);
       submittedArr[si] = true;
       submittedFlags[currentPracticeIndex] = submittedArr;
+      const isCorrect = isCorrectAnswer(cur, sq.correctLetter);
+      window.QuizCloud?.recordSubmittedAnswer?.({ question: q, questionIndex: currentPracticeIndex, subIndex: si + 1, answer: cur, isCorrect });
+      window.QuizCloud?.scheduleActivePracticeSave?.(true);
       const allSubmitted = submittedArr.every(s => s);
       if (allSubmitted) {
         const allCorrect = q.subQuestions.every((sq, idx) => { const c = arr[idx]; const uLetters = c == null ? [] : (Array.isArray(c) ? c : [c]); return isCorrectAnswer(uLetters, sq.correctLetter); });
@@ -1138,7 +1285,7 @@ function renderComprehensive(q, container, isMock, mockFinished) {
 }
 
 /* ==================== 倒计时 ==================== */
-function startCountdown() { clearMockTimer(); updateCountdownDisplay(); mockState.timerId = setInterval(() => { mockState.remaining--; updateCountdownDisplay(); if (mockState.remaining <= 0) { clearMockTimer(); alert("⏰ 考试时间已到，系统自动交卷！"); submitMockExam(true); } }, 1000); }
+function startCountdown() { clearMockTimer(); updateCountdownDisplay(); mockState.timerId = setInterval(() => { mockState.remaining--; updateCountdownDisplay(); if (mockState.remaining % 10 === 0) window.QuizCloud?.scheduleActivePracticeSave?.(); if (mockState.remaining <= 0) { clearMockTimer(); alert("⏰ 考试时间已到，系统自动交卷！"); submitMockExam(true); } }, 1000); }
 function clearMockTimer() { if (mockState.timerId) { clearInterval(mockState.timerId); mockState.timerId = null; } }
 function updateCountdownDisplay() { const m = Math.floor(Math.max(0, mockState.remaining) / 60); const s = Math.max(0, mockState.remaining) % 60; document.getElementById("countdownText").innerText = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; const bar = document.getElementById("countdownBar"); if (mockState.remaining <= 300) bar.classList.add("urgent"); else bar.classList.remove("urgent"); updatePracticeInfo(); }
 
@@ -1146,7 +1293,11 @@ function updateCountdownDisplay() { const m = Math.floor(Math.max(0, mockState.r
 function submitMockExam(autoSubmit) {
   if (!mockState.active || mockState.submitted) return;
   let unanswered = 0;
-  for (let i = 0; i < currentPracticeSet.length; i++) { const q = currentPracticeSet[i]; if (isComprehensive(q)) { const arr = userAnswers[i] || []; unanswered += arr.filter(a => a === null || (Array.isArray(a) && a.length === 0)).length; } else { if (userAnswers[i] === null || (Array.isArray(userAnswers[i]) && userAnswers[i].length === 0)) unanswered++; } }
+  for (let i = 0; i < currentPracticeSet.length; i++) {
+    const q = currentPracticeSet[i];
+    if (isComprehensive(q)) unanswered += (submittedFlags[i] || []).filter(flag => !flag).length;
+    else if (!submittedFlags[i]) unanswered++;
+  }
   if (!autoSubmit && unanswered > 0) { if (!confirm(`还有 ${unanswered} 个小问未作答，确定交卷吗？`)) return; }
   clearMockTimer(); mockState.submitted = true; mockDeferredAsks = [];
   for (let i = 0; i < currentPracticeSet.length; i++) {
@@ -1154,18 +1305,19 @@ function submitMockExam(autoSubmit) {
     let isCorrect = false;
     if (isComprehensive(q)) {
       const arr = userAnswers[i] || [];
-      const allAnswered = arr.every(a => a !== null && !(Array.isArray(a) && a.length === 0));
+      const flags = submittedFlags[i] || [];
+      const allAnswered = flags.length === q.subQuestions.length && flags.every(Boolean);
       const allCorrect = allAnswered && q.subQuestions.every((sq, si) => { const cur = arr[si]; const uLetters = Array.isArray(cur) ? cur : (cur ? [cur] : []); return isCorrectAnswer(uLetters, sq.correctLetter); });
       isCorrect = allCorrect;
       if (!allCorrect && allAnswered) recordWrongAnswerComprehensive(q, arr);
     } else {
       const ua = userAnswers[i];
-      if (ua !== null && !(Array.isArray(ua) && ua.length === 0)) { const uLetters = Array.isArray(ua) ? ua : [ua]; isCorrect = isCorrectAnswer(uLetters, q.correctLetter); if (!isCorrect) recordWrongAnswer(q, uLetters); }
+      if (submittedFlags[i]) { const uLetters = Array.isArray(ua) ? ua : [ua]; isCorrect = isCorrectAnswer(uLetters, q.correctLetter); if (!isCorrect) recordWrongAnswer(q, uLetters); }
     }
     if (isCorrect) { if (wrongList.find(w => w.qid === q.id)) { if (!mockDeferredAsks.find(x => x.qid === q.id)) mockDeferredAsks.push({ qid: q.id, text: q.text, chapter: cleanKnowledgeText(q.knowledge) || '未分类' }); } }
   }
   saveWrong(); renderMockResult(); renderWrongPanel(false);
-  window.QuizCloud?.recordCurrentSession?.('mock', document.getElementById("sessionSyncStatus"));
+  finishCurrentPractice(document.getElementById("sessionSyncStatus"), 'completed');
   if (mockDeferredAsks.length > 0) {
     const items = [...mockDeferredAsks]; mockDeferredAsks = [];
     setTimeout(() => { askRemoveFromWrong(items, (removedQids) => { removedQids.forEach(qid => { const i = wrongList.findIndex(w => w.qid === qid); if (i !== -1) wrongList.splice(i, 1); }); saveWrong(); renderWrongPanel(false); }); }, 300);
@@ -1174,17 +1326,15 @@ function submitMockExam(autoSubmit) {
 
 function renderMockResult() {
   const container = document.getElementById("practiceContent");
-  let correctSub = 0, totalSub = 0;
+  let correctSub = 0, totalSub = 0, answeredSub = 0;
   const chapterStat = new Map();
   for (let i = 0; i < currentPracticeSet.length; i++) {
     const q = currentPracticeSet[i];
     const k = cleanKnowledgeText(q.knowledge) || "未分类";
     if (!chapterStat.has(k)) chapterStat.set(k, { total: 0, correct: 0 });
-    if (isComprehensive(q)) { const arr = userAnswers[i] || []; q.subQuestions.forEach((sq, si) => { totalSub++; const st = chapterStat.get(k); st.total++; const cur = arr[si]; const uLetters = cur === null || cur === undefined ? [] : (Array.isArray(cur) ? cur : [cur]); if (isCorrectAnswer(uLetters, sq.correctLetter)) { correctSub++; st.correct++; } }); }
-    else { totalSub++; const st = chapterStat.get(k); st.total++; const ua = userAnswers[i]; const uLetters = ua === null ? [] : (Array.isArray(ua) ? ua : [ua]); if (isCorrectAnswer(uLetters, q.correctLetter)) { correctSub++; st.correct++; } }
+    if (isComprehensive(q)) { const arr = userAnswers[i] || []; const flags = submittedFlags[i] || []; q.subQuestions.forEach((sq, si) => { totalSub++; const st = chapterStat.get(k); st.total++; if (!flags[si]) return; answeredSub++; const cur = arr[si]; const uLetters = cur === null || cur === undefined ? [] : (Array.isArray(cur) ? cur : [cur]); if (isCorrectAnswer(uLetters, sq.correctLetter)) { correctSub++; st.correct++; } }); }
+    else { totalSub++; const st = chapterStat.get(k); st.total++; if (!submittedFlags[i]) return; answeredSub++; const ua = userAnswers[i]; const uLetters = ua === null ? [] : (Array.isArray(ua) ? ua : [ua]); if (isCorrectAnswer(uLetters, q.correctLetter)) { correctSub++; st.correct++; } }
   }
-  let answeredSub = 0;
-  for (let i = 0; i < currentPracticeSet.length; i++) { const q = currentPracticeSet[i]; if (isComprehensive(q)) { const arr = userAnswers[i] || []; answeredSub += arr.filter(a => a !== null && !(Array.isArray(a) && a.length === 0)).length; } else { if (userAnswers[i] !== null && !(Array.isArray(userAnswers[i]) && userAnswers[i].length === 0)) answeredSub++; } }
   const rate = answeredSub > 0 ? (correctSub / answeredSub * 100).toFixed(1) : "0.0";
   const elapsedSec = mockState.durationMin * 60 - Math.max(0, mockState.remaining);
   const em = Math.floor(elapsedSec / 60), es = elapsedSec % 60;
@@ -1195,12 +1345,12 @@ function renderMockResult() {
     const q = currentPracticeSet[i];
     const isExpanded = expandedMockRows.has(i);
     if (isComprehensive(q)) {
-      const arr = userAnswers[i] || []; let compCorrect = 0;
-      q.subQuestions.forEach((sq, si) => { const cur = arr[si]; const uLetters = cur === null || cur === undefined ? [] : (Array.isArray(cur) ? cur : [cur]); if (isCorrectAnswer(uLetters, sq.correctLetter)) compCorrect++; });
-      const allCorrect = compCorrect === q.subQuestions.length;
+      const arr = userAnswers[i] || []; const flags = submittedFlags[i] || []; let compCorrect = 0, compAnswered = 0;
+      q.subQuestions.forEach((sq, si) => { if (!flags[si]) return; compAnswered++; const cur = arr[si]; const uLetters = cur === null || cur === undefined ? [] : (Array.isArray(cur) ? cur : [cur]); if (isCorrectAnswer(uLetters, sq.correctLetter)) compCorrect++; });
+      const allCorrect = compAnswered === q.subQuestions.length && compCorrect === q.subQuestions.length;
       html += `<div class="mock-review-row ${isExpanded ? 'active' : ''}" data-qi="${i}"><div class="mock-review-header ${isExpanded ? 'active' : ''}" data-qi="${i}"><div class="mock-review-text"><strong>第${i+1}题</strong>【综合分析题】(${allCorrect?'✓':'✗'}) 正确 ${compCorrect}/${q.subQuestions.length} 小问<div style="font-size:0.85rem; color:#475569; margin-top:4px;">${escapeHtml(q.text.substring(0, 60))}...</div></div><span class="mock-review-tag ${allCorrect?'correct':'wrong'}">${allCorrect?'正确':'错误'}</span><span class="mock-review-chevron">▶</span></div><div class="mock-review-detail-placeholder" data-qi="${i}"></div></div>`;
     } else {
-      const ua = userAnswers[i]; const uLetters = ua === null ? [] : (Array.isArray(ua) ? ua : [ua]); const correct = isCorrectAnswer(uLetters, q.correctLetter); const userShow = uLetters.length > 0 ? uLetters.join('') : '未答';
+      const ua = userAnswers[i]; const uLetters = submittedFlags[i] ? (ua === null ? [] : (Array.isArray(ua) ? ua : [ua])) : []; const correct = isCorrectAnswer(uLetters, q.correctLetter); const userShow = uLetters.length > 0 ? uLetters.join('') : '未答';
       html += `<div class="mock-review-row ${isExpanded ? 'active' : ''}" data-qi="${i}"><div class="mock-review-header ${isExpanded ? 'active' : ''}" data-qi="${i}"><div class="mock-review-text"><strong>第${i+1}题</strong>（${correct?'✓':'✗'}）你选：${userShow} &nbsp;|&nbsp; 正确答案：${normalizeAnswer(q.correctLetter).join('')}<div style="font-size:0.85rem; color:#475569; margin-top:4px;">${escapeHtml(q.text.substring(0, 60))}...</div></div><span class="mock-review-tag ${correct?'correct':'wrong'}">${correct?'正确':'错误'}</span><span class="mock-review-chevron">▶</span></div><div class="mock-review-detail-placeholder" data-qi="${i}"></div></div>`;
     }
   }
@@ -1239,11 +1389,12 @@ function buildMockInlineDetail(idx) {
   const q = currentPracticeSet[idx];
   if (isComprehensive(q)) {
     const arr = userAnswers[idx] || [];
+    const flags = submittedFlags[idx] || [];
     let html = `<div class="mock-review-detail" data-qi="${idx}"><div style="font-weight:600; margin-bottom:8px;">${escapeHtml(q.text)}</div>`;
     q.subQuestions.forEach((sq, si) => {
       const correctSet = normalizeAnswer(sq.correctLetter);
       const isMulti = correctSet.length > 1;
-      const cur = arr[si];
+      const cur = flags[si] ? arr[si] : null;
       const uLetters = cur === null || cur === undefined ? [] : (Array.isArray(cur) ? cur : [cur]);
       const isFullyCorrect = isCorrectAnswer(uLetters, sq.correctLetter);
       const displayExp = remapExplanation(sq.explanation, sq.letterMap);
@@ -1255,7 +1406,7 @@ function buildMockInlineDetail(idx) {
     html += `</div>`;
     return html;
   } else {
-    const ua = userAnswers[idx]; const uLetters = ua === null ? [] : (Array.isArray(ua) ? ua : [ua]); const correctSet = normalizeAnswer(q.correctLetter); const isMulti = correctSet.length > 1; const isFullyCorrect = isCorrectAnswer(uLetters, q.correctLetter); const displayExp = remapExplanation(q.explanation, q.letterMap);
+    const ua = submittedFlags[idx] ? userAnswers[idx] : null; const uLetters = ua === null ? [] : (Array.isArray(ua) ? ua : [ua]); const correctSet = normalizeAnswer(q.correctLetter); const isMulti = correctSet.length > 1; const isFullyCorrect = isCorrectAnswer(uLetters, q.correctLetter); const displayExp = remapExplanation(q.explanation, q.letterMap);
     let html = `<div class="mock-review-detail" data-qi="${idx}"><div style="font-weight:600; margin-bottom:8px;">${escapeHtml(q.text)}</div>`;
     q.options.forEach(o => { const isCorrectOpt = correctSet.includes(o.letter); const isUserSelected = uLetters.includes(o.letter); let cls = 'opt-row'; let prefix = ''; if (isCorrectOpt) { if (isMulti && !isFullyCorrect && isUserSelected) { cls += ' user-selected-correct'; prefix = '🔵 '; } else { cls += ' correct'; prefix = '✅ '; } } else if (isUserSelected) { cls += ' user-wrong'; prefix = '❌ '; } html += `<div class="${cls}">${prefix}${o.letter}. ${escapeHtml(o.text)}</div>`; });
     const userShow = uLetters.length > 0 ? uLetters.join('') : '未答';
@@ -1276,11 +1427,11 @@ function generatePracticeReport() {
   let correctSub = 0, totalAnswered = 0;
   const chapterStat = new Map();
   for (let i = 0; i < currentPracticeSet.length; i++) {
-    const q = currentPracticeSet[i]; const k = cleanKnowledgeText(q.knowledge) || "未分类";
+    const q = currentPracticeSet[i]; const k = q.chapter || cleanKnowledgeText(q.knowledge) || "未分类";
     if (!chapterStat.has(k)) chapterStat.set(k, { total: 0, correct: 0 });
     const st = chapterStat.get(k);
-    if (isComprehensive(q)) { const arr = userAnswers[i] || []; q.subQuestions.forEach((sq, si) => { const cur = arr[si]; if (cur === null || cur === undefined || (Array.isArray(cur) && cur.length === 0)) return; totalAnswered++; st.total++; const uLetters = Array.isArray(cur) ? cur : [cur]; if (isCorrectAnswer(uLetters, sq.correctLetter)) { correctSub++; st.correct++; } }); }
-    else { const ua = userAnswers[i]; if (ua === null || (Array.isArray(ua) && ua.length === 0)) continue; totalAnswered++; st.total++; const uLetters = Array.isArray(ua) ? ua : [ua]; if (isCorrectAnswer(uLetters, q.correctLetter)) { correctSub++; st.correct++; } }
+    if (isComprehensive(q)) { const arr = userAnswers[i] || []; const flags = submittedFlags[i] || []; q.subQuestions.forEach((sq, si) => { if (!flags[si]) return; const cur = arr[si]; totalAnswered++; st.total++; const uLetters = Array.isArray(cur) ? cur : [cur]; if (isCorrectAnswer(uLetters, sq.correctLetter)) { correctSub++; st.correct++; } }); }
+    else { if (!submittedFlags[i]) continue; const ua = userAnswers[i]; totalAnswered++; st.total++; const uLetters = Array.isArray(ua) ? ua : [ua]; if (isCorrectAnswer(uLetters, q.correctLetter)) { correctSub++; st.correct++; } }
   }
   const rate = totalAnswered > 0 ? (correctSub / totalAnswered * 100).toFixed(1) : "0.0";
   let html = `<h3>📊 练习报告</h3><div>已作答: ${totalAnswered}</div><div>正确: ${correctSub} (正确率 ${rate}%)</div><h4 style="margin-top:16px;">各章节得分</h4><table class="section-score-table"><thead><tr><th>章节</th><th>题数</th><th>正确</th><th>得分率</th></tr></thead><tbody>`;
@@ -1288,7 +1439,7 @@ function generatePracticeReport() {
   html += `</tbody></table><div id="practiceSessionSyncStatus" class="cloud-status" style="margin-top:10px;">正在保存本次练习记录...</div><div style="margin-top:10px;">🕒 完成时间: ${new Date().toLocaleString()}</div>`;
   document.getElementById("practiceReport").innerHTML = html;
   document.getElementById("practiceReport").style.display = "block";
-  window.QuizCloud?.recordCurrentSession?.('practice', document.getElementById("practiceSessionSyncStatus"));
+  finishCurrentPractice(document.getElementById("practiceSessionSyncStatus"), 'completed');
 }
 
 /* ==================== 错题本 ==================== */
@@ -1400,11 +1551,11 @@ async function handleUploadJSON(file, scope = 'personal') {
     const json = JSON.parse(text);
     if (!json.questions || !Array.isArray(json.questions)) throw new Error("缺少 questions 数组");
     const existing = scope === 'public' ? loadPublicQuestions() : loadUserQuestions();
-    const existingTexts = new Set(existing.map(q => (q.text || '').trim().substring(0, 50)));
+    const existingTexts = new Set(existing.map(q => window.QuizProgressCore.canonicalize(window.QuizProgressCore.questionContent(q))));
     const prepared = [];
     for (const item of json.questions) {
       if (!item.text) continue;
-      const key = String(item.text).trim().substring(0, 50);
+      const key = window.QuizProgressCore.canonicalize(window.QuizProgressCore.questionContent(item));
       if (existingTexts.has(key)) continue;
       if (item.type === 'comprehensive' && Array.isArray(item.subQuestions)) {
         const subs = []; let valid = true;
@@ -1541,26 +1692,26 @@ function bindEvents() {
       closeSetupModal(); startMockExam(count, dur, numComp);
     }
   };
-  document.getElementById("prevQuestionBtn").onclick = () => { if (currentPracticeIndex > 0) { currentPracticeIndex--; renderCurrentPractice(); } };
+  document.getElementById("prevQuestionBtn").onclick = () => { if (currentPracticeIndex > 0) { currentPracticeIndex--; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); } };
   document.getElementById("nextQuestionBtn").onclick = () => {
     const isMock = currentMode === 'mock';
-    if (isMock) { if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); } return; }
+    if (isMock) { if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); } return; }
     const q = currentPracticeSet[currentPracticeIndex];
     if (isComprehensive(q)) {
       const submittedArr = submittedFlags[currentPracticeIndex] || [];
       const unsubmitted = submittedArr.filter(s => !s).length;
       if (unsubmitted > 0) { if (!confirm(`还有 ${unsubmitted} 个小问未提交，是否跳过？`)) return; }
-      if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); }
+      if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); }
       return;
     }
     const isSubmitted = submittedFlags[currentPracticeIndex];
     if (!isSubmitted) {
       const curAns = userAnswers[currentPracticeIndex];
       const hasAnswer = curAns !== null && !(Array.isArray(curAns) && curAns.length === 0);
-      if (confirm("当前题未提交，是否跳过？")) { if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); } }
+      if (confirm("当前题未提交，是否跳过？")) { if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); } }
       return;
     }
-    if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); }
+    if (currentPracticeIndex < currentPracticeSet.length - 1) { currentPracticeIndex++; renderCurrentPractice(); window.QuizCloud?.scheduleActivePracticeSave?.(); }
   };
   document.getElementById("submitPracticeBtn").onclick = generatePracticeReport;
   document.getElementById("submitMockBtn").onclick = () => submitMockExam(false);
@@ -1594,17 +1745,52 @@ function bindEvents() {
 }
 
 /* ==================== 启动 ==================== */
-function startQuizApp() {
+function restoreActivePractice(payload) {
+  if (!payload || payload.version !== 2 || !Array.isArray(payload.questions) || !payload.session) return false;
+  currentMode = payload.mode || 'normal';
+  currentSession = { ...payload.session, saving: false, finalizing: false };
+  currentFilterYear = payload.filters?.year || 'all';
+  currentFilterType = payload.filters?.type || 'all';
+  currentFilterChapter = payload.filters?.chapter || 'all';
+  currentPracticeSet = payload.questions;
+  currentPracticeIndex = Math.min(Math.max(0, Number(payload.currentIndex) || 0), Math.max(0, currentPracticeSet.length - 1));
+  userAnswers = Array.isArray(payload.answers) ? payload.answers : currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(null) : null);
+  submittedFlags = Array.isArray(payload.submittedFlags) ? payload.submittedFlags : currentPracticeSet.map(q => isComprehensive(q) ? new Array(q.subQuestions.length).fill(false) : false);
+  if (currentPracticeSet.length === 0) return false;
+  document.getElementById('yearFilterSelect').value = currentFilterYear;
+  document.getElementById('typeFilterSelect').value = currentFilterType;
+  document.getElementById('chapterFilterSelect').value = currentFilterChapter;
+  setupPracticeEnvironment();
+  if (currentMode === 'mock') {
+    const savedMock = { ...(payload.mock || {}) };
+    const awaySeconds = Math.max(0, Math.floor((Date.now() - Number(payload.savedAt || Date.now())) / 1000));
+    mockState = { ...savedMock, timerId: null, active: true, submitted: false, remaining: Math.max(0, Number(savedMock.remaining || 0) - awaySeconds) };
+    document.getElementById('countdownBar').style.display = 'flex';
+    document.getElementById('mockFooter').style.display = 'block';
+    document.getElementById('exitMockBtn').style.display = 'inline-block';
+    document.getElementById('submitPracticeBtn').style.display = 'none';
+    if (mockState.remaining <= 0) { submitMockExam(true); return true; }
+    startCountdown();
+  }
+  renderCurrentPractice();
+  updatePracticeInfo();
+  if (payload.pendingSync) window.QuizCloud?.scheduleActivePracticeSave?.(true);
+  return true;
+}
+
+function startQuizApp(activePayload = null) {
   initEyeCare();
   updateTypeToggleBtn();
   rebuildMasterList();
   bindEvents();
-  if (globalMasterList.length === 0) { renderEmpty(); } else { startNormalPractice(); }
+  if (globalMasterList.length === 0) { renderEmpty(); }
+  else if (!restoreActivePractice(activePayload)) { startNormalPractice(); }
   renderWrongPanel(false); renderFavPanel(false); loadRecite();
 }
 </script>
-<script src="vendor/supabase.js"></script>
-<script src="config.js"></script>
-<script src="cloud.js"></script>
+<script src="vendor/supabase.js?v=20261102-1"></script>
+<script src="config.js?v=20261102-1"></script>
+<script src="progress-core.js?v=20261102-1"></script>
+<script src="cloud.js?v=20261102-1"></script>
 </body>
 </html>

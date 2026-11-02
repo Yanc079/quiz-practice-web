@@ -25,6 +25,7 @@ test('只有完整内容一致时公共题和个人题才会合并', async () =>
 
   assert.equal(merged.length, 2);
   assert.deepEqual([...merged[0].sources].sort(), ['personal', 'public']);
+  assert.deepEqual([...merged[0].allIds].sort(), ['personal-1', 'public-1']);
   assert.equal(merged[1].id, 'public-2');
 });
 
