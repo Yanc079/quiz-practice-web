@@ -399,7 +399,7 @@ body.eye-care .history-delete-btn { color: #fca5a5; background: #2a2a2a; border-
     <button class="nav-btn active" data-panel="practicePanel">📚 题库练习</button>
     <button class="nav-btn" data-panel="wrongPanel">📖 错题本</button>
     <button class="nav-btn" data-panel="favPanel">⭐ 我的收藏</button>
-    <button class="nav-btn" data-panel="recitePanel">🧠 背题模式</button>
+    <button class="nav-btn" data-panel="recitePanel">📖 背题模式</button>
     <button class="nav-btn" data-panel="managePanel">📂 导入题库</button>
     <button class="nav-btn" data-panel="historyPanel">📈 学习记录</button>
     <button class="nav-btn hidden" id="userAdminNav" data-panel="userAdminPanel">👥 用户管理</button>
@@ -421,7 +421,7 @@ body.eye-care .history-delete-btn { color: #fca5a5; background: #2a2a2a; border-
       <div class="btn-group">
         <select id="yearFilterSelect" class="year-select"><option value="all">📅 全部年份</option></select>
         <select id="typeFilterSelect" class="type-select">
-          <option value="undone">未做题目</option>
+          <option value="undone">🆕 未做题目</option>
           <option value="all">📋 全部题型</option>
           <option value="single">🔘 单选/多选</option>
           <option value="comprehensive">📚 综合分析</option>
@@ -1793,9 +1793,9 @@ function startQuizApp(activePayload = null) {
   renderWrongPanel(false); renderFavPanel(false); loadRecite();
 }
 </script>
-<script src="vendor/supabase.js?v=20261102-3"></script>
-<script src="config.js?v=20261102-3"></script>
-<script src="progress-core.js?v=20261102-3"></script>
-<script src="cloud.js?v=20261102-3"></script>
+<script src="vendor/supabase.js?v=20261102-4"></script>
+<script src="config.js?v=20261102-4"></script>
+<script src="progress-core.js?v=20261102-4"></script>
+<script src="cloud.js?v=20261102-4"></script>
 </body>
 </html>
