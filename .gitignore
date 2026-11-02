@@ -3,3 +3,5 @@ Thumbs.db
 supabase/.temp/
 dist/
 .wrangler/
+test-results/
+playwright-report/
