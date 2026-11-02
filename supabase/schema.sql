@@ -117,12 +117,19 @@ create table if not exists public.personal_questions (
 
 create table if not exists public.global_questions (
   id uuid primary key default gen_random_uuid(),
-  uploaded_by uuid not null references public.profiles(id) on delete restrict,
+  uploaded_by uuid references public.profiles(id) on delete set null,
   question_key text not null unique,
   payload jsonb not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Allow public questions to remain published if the administrator who uploaded them is deleted.
+alter table public.global_questions alter column uploaded_by drop not null;
+alter table public.global_questions drop constraint if exists global_questions_uploaded_by_fkey;
+alter table public.global_questions
+  add constraint global_questions_uploaded_by_fkey
+  foreign key (uploaded_by) references public.profiles(id) on delete set null;
 
 create table if not exists public.wrong_records (
   user_id uuid not null references public.profiles(id) on delete cascade,
