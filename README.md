@@ -2,6 +2,8 @@
 
 这是答题器的 GitHub Pages 前端。账号、题库、错题、收藏、成绩和答题历史由 Supabase 提供。
 
+线上地址：https://yanc079.github.io/quiz-practice-web/
+
 ## 部署前配置
 
 1. 在 Supabase SQL Editor 中执行 `supabase/schema.sql`。
